@@ -1,14 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --bg: #09090b; /* zinc-950 */
   --text: #fafafa; /* zinc-50 */
 }
 
+@theme {
+  --color-brand: #a855f7;
+  --color-brand-hover: #9333ea;
+}
+
 body {
   @apply bg-zinc-950 text-zinc-50 antialiased;
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar for a more premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }
