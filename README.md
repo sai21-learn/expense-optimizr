@@ -1,6 +1,6 @@
 # Expense Optimizer
 
-A modern React application that intelligently splits group expenses using an optimized greedy algorithm to minimize the number of transactions required for settlement.
+A modern React application that intelligently splits group expenses using an optimized **greedy algorithm** to minimize the number of transactions required for settlement. This project serves as a practical showcase of algorithmic problem-solving in real-world applications.
 
 ## 🎯 What This App Does
 
@@ -12,9 +12,20 @@ Expense Optimizer helps groups of people fairly split shared expenses (like trip
 - **Real-time Calculations**: Instant results as you add or modify expense data
 - **Clean, Modern UI**: Built with React and Tailwind CSS for an intuitive experience
 
-## 🧠 The Greedy Strategy Explained
+## 🧠 The Greedy Algorithm Showcase
 
-The app employs a **greedy algorithm** to minimize the number of transactions needed to settle group expenses. Here's how it works:
+This project specifically demonstrates the implementation of a **greedy algorithm** for the expense splitting problem - a classic algorithmic challenge that appears in computer science interviews and real-world applications.
+
+### Core Algorithm File: `src/utils/algorithm.js`
+
+The heart of this application is the greedy algorithm implementation in [`src/utils/algorithm.js`](src/utils/algorithm.js), which contains two key functions:
+
+- **`calculateBalances(people)`** - Computes net balances for each person
+- **`minimizeTransactions(balances)`** - Greedy algorithm for transaction optimization
+
+### How the Greedy Strategy Works
+
+The algorithm minimizes the number of transactions needed to settle group expenses through these steps:
 
 ### Step 1: Calculate Net Balances
 For each person in the group:
@@ -48,6 +59,12 @@ Result: Only 2 transactions instead of 3 possible combinations
 ```
 
 This approach is computationally efficient and often produces optimal or near-optimal solutions for expense splitting.
+
+### Algorithmic Insights
+- **Greedy Choice Property**: Always match the largest remaining debtor with the largest remaining creditor
+- **Optimal Substructure**: The problem can be solved by making locally optimal choices
+- **Time Complexity**: O(n log n) due to sorting, with O(n²) worst-case transaction generation
+- **Space Complexity**: O(n) for storing balances and transactions
 
 ## 🚀 Getting Started
 
