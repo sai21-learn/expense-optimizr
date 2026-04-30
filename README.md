@@ -1,18 +1,142 @@
-# React + Vite
+# Expense Optimizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application that intelligently splits group expenses using an optimized greedy algorithm to minimize the number of transactions required for settlement.
 
-Currently, two official plugins are available:
+## 🎯 What This App Does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Expense Optimizer helps groups of people fairly split shared expenses (like trips, dinners, or household costs) by calculating who owes what and providing the most efficient way to settle up.
 
-## React Compiler
+### Key Features
+- **Fair Expense Splitting**: Calculates net balances based on what each person paid vs. the group average
+- **Transaction Minimization**: Uses a greedy algorithm to reduce the number of money transfers needed
+- **Real-time Calculations**: Instant results as you add or modify expense data
+- **Clean, Modern UI**: Built with React and Tailwind CSS for an intuitive experience
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🧠 The Greedy Strategy Explained
 
-Note: This will impact Vite dev & build performances.
+The app employs a **greedy algorithm** to minimize the number of transactions needed to settle group expenses. Here's how it works:
 
-## Expanding the ESLint configuration
+### Step 1: Calculate Net Balances
+For each person in the group:
+```
+Balance = Amount Paid - Group Average
+```
+- Positive balance = Person overpaid (is owed money)
+- Negative balance = Person underpaid (owes money)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Step 2: Greedy Transaction Minimization
+The algorithm sorts debtors (negative balance) and creditors (positive balance), then:
+1. Matches the largest debtor with the largest creditor
+2. Transfers the minimum of what the debtor owes and creditor is owed
+3. Updates balances and repeats until all debts are settled
+
+### Example
+```
+Group: Alice ($100), Bob ($0), Charlie ($20)
+Total: $120, Average: $40 each
+
+Balances:
+- Alice: +$60 (overpaid)
+- Bob: -$40 (owes)
+- Charlie: -$20 (owes)
+
+Greedy Solution:
+1. Bob pays Alice $40
+2. Charlie pays Alice $20
+
+Result: Only 2 transactions instead of 3 possible combinations
+```
+
+This approach is computationally efficient and often produces optimal or near-optimal solutions for expense splitting.
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd expense-optimizer
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` (or the port shown in your terminal)
+
+### Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run test` - Run test suite
+- `npm run lint` - Run ESLint for code quality
+
+## 🏗️ Architecture
+
+```
+src/
+├── utils/
+│   ├── algorithm.js          # Core expense splitting logic
+│   └── algorithm.test.js     # Unit tests for algorithms
+├── components/               # React components (planned)
+├── App.jsx                   # Main application component
+└── main.jsx                  # Application entry point
+```
+
+### Core Algorithm (`algorithm.js`)
+- `calculateBalances()` - Computes net balances for each person
+- `minimizeTransactions()` - Greedy algorithm for transaction optimization
+
+## 🧪 Testing
+
+The application includes comprehensive unit tests for the core algorithms:
+
+```bash
+npm run test
+```
+
+Tests cover:
+- Balance calculations
+- Transaction minimization
+- Edge cases (equal payments, single person, etc.)
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 with Vite
+- **Styling**: Tailwind CSS v4
+- **Charts**: Recharts (for future visualizations)
+- **Testing**: Vitest
+- **Linting**: ESLint with React rules
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Write tests for your changes
+4. Ensure all tests pass (`npm run test`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Built with modern React and Vite
+- Inspired by real-world expense splitting challenges
+- Algorithm based on established debt settlement optimization techniques
